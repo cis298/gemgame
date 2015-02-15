@@ -7,6 +7,11 @@ public class B2DVars {
 
     public static final float PPM = 100;
 
+    public static final short REDATTUNEMENT = 0;
+    public static final short YELLOWATTUNEMENT = 1;
+    public static final short GREENATTUNEMENT = 2;
+    public static final short BLUEATTUNEMENT = 3;
+
     public static final short BIT_PLAYER = 2;
     public static final short BIT_EXIT = 4;
 

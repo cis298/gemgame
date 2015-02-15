@@ -4,10 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.homeserver.barnesbrothers.gemgame.handlers.Content;
 import com.homeserver.barnesbrothers.gemgame.handlers.GameStateManager;
+import com.homeserver.barnesbrothers.gemgame.handlers.GemInput;
+import com.homeserver.barnesbrothers.gemgame.handlers.GemInputProcessor;
 
 
 public class GemGame extends ApplicationAdapter {
@@ -30,6 +31,8 @@ public class GemGame extends ApplicationAdapter {
 
     @Override
     public void create () {
+
+        Gdx.input.setInputProcessor(new GemInputProcessor());
 
         res = new Content();
         res.loadTexture("gemtileset.png", "tiles");
@@ -55,6 +58,7 @@ public class GemGame extends ApplicationAdapter {
             gsm.update(STEP);
             gsm.render();
         //}
+        GemInput.update();
     }
 
     @Override
