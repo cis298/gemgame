@@ -202,6 +202,38 @@ public class Play extends GameState {
             player.getBody().setLinearVelocity(-4.0f, player.getBody().getLinearVelocity().y);
             stuckAtZeroV = false;
         }
+
+        //Remove Gems
+        Array<Body> redGemsToRemove = cl.getRedGemsToRemove();
+        Array<Body> yellowGemsToRemove = cl.getYellowGemsToRemove();
+        Array<Body> greenGemsToRemove = cl.getGreenGemsToRemove();
+        Array<Body> blueGemsToRemove = cl.getBlueGemsToRemove();
+
+        for(int i = 0; i < redGemsToRemove.size; i++) {
+            Body b = redGemsToRemove.get(i);
+            redGems.removeValue((RedGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+        for(int i = 0; i < yellowGemsToRemove.size; i++) {
+            Body b = yellowGemsToRemove.get(i);
+            yellowGems.removeValue((YellowGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+        for(int i = 0; i < greenGemsToRemove.size; i++) {
+            Body b = greenGemsToRemove.get(i);
+            greenGems.removeValue((GreenGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+        for(int i = 0; i < blueGemsToRemove.size; i++) {
+            Body b = blueGemsToRemove.get(i);
+            blueGems.removeValue((BlueGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+
+        redGemsToRemove.clear();
+        yellowGemsToRemove.clear();
+        greenGemsToRemove.clear();
+        blueGemsToRemove.clear();
     }
 
     @Override
