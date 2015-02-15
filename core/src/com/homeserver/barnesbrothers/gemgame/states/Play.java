@@ -281,7 +281,7 @@ public class Play extends GameState {
         exit.render(sb);
 
         //Render the world
-        b2dr.render(world, b2dCam.combined);
+        //b2dr.render(world, b2dCam.combined);
     }
 
     @Override
