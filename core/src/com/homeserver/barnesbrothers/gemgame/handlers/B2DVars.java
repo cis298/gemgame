@@ -9,7 +9,7 @@ public class B2DVars {
 
     public static final int SSIZE = 64;
     public static final int HSSIZE = 32;
-    public static final float PPM = 100.0f;
+    public static final float PPM = 250.0f;
 
     public static final short REDATTUNEMENT = 0;
     public static final short YELLOWATTUNEMENT = 1;

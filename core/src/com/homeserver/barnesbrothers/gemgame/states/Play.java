@@ -180,10 +180,12 @@ public class Play extends GameState {
         }
 
         //Check to see if the player is at one side of the map or the other, and then change direction.
-        if (player.getPosition().x >= GemGame.V_WIDTH / PPM -player.getWidth()/2/PPM) {
+        //if (player.getPosition().x >= GemGame.V_WIDTH / PPM -player.getWidth()/2/PPM) {
+        if (player.getPosition().x >= (GemGame.V_WIDTH - (player.getWidth()/2) - (SSIZE*3))/PPM) {
             player.getBody().setLinearVelocity(-4.0f, 0);
         }
-        if (player.getPosition().x <= 0 + player.getWidth()/2/PPM) {
+        //if (player.getPosition().x <= 0 + player.getWidth()/2/PPM) {
+        if (player.getPosition().x <= ((SSIZE*3) + (player.getWidth()/2))/PPM) {
             player.getBody().setLinearVelocity(4.0f, 0);
         }
 
