@@ -14,7 +14,7 @@ import com.homeserver.barnesbrothers.gemgame.handlers.GemInputProcessor;
 public class GemGame extends ApplicationAdapter {
 
     public static final String TITLE = "Gem Test";
-    public static final int V_WIDTH = 608;
+    public static final int V_WIDTH = 640;
     public static final int V_HEIGHT = 480;
     public static final int SCALE = 2;
 

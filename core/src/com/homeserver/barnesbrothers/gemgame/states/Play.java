@@ -20,6 +20,8 @@ import com.homeserver.barnesbrothers.gemgame.handlers.GameStateManager;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemContactListener;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemInput;
 
+import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.PLAY;
+
 /**
  * Created by david on 2/9/15.
  */
@@ -79,7 +81,8 @@ public class Play extends GameState {
         stuckAtZeroV = false;
 
         short playerInteraction = B2DVars.BIT_RED_GEM | B2DVars.BIT_YELLOW_GEM | B2DVars.BIT_GREEN_GEM | B2DVars.BIT_BLUE_GEM |
-                                B2DVars.BIT_RED_ATTUNMENT | B2DVars.BIT_YELLOW_ATTUNMENT | B2DVars.BIT_GREEN_ATTUNMENT | B2DVars.BIT_BLUE_ATTUNMENT | B2DVars.BIT_SPIKE;
+                                B2DVars.BIT_RED_ATTUNMENT | B2DVars.BIT_YELLOW_ATTUNMENT | B2DVars.BIT_GREEN_ATTUNMENT | B2DVars.BIT_BLUE_ATTUNMENT |
+                                B2DVars.BIT_SPIKE | B2DVars.BIT_EXIT;
 
         createPlayer(B2DVars.BIT_PLAYER, playerInteraction, BodyDef.BodyType.DynamicBody);
         createEntity("Exit", B2DVars.BIT_EXIT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
@@ -234,6 +237,13 @@ public class Play extends GameState {
         yellowGemsToRemove.clear();
         greenGemsToRemove.clear();
         blueGemsToRemove.clear();
+
+        //Level done. Remove exit and player, then start new.
+        if (cl.getRemoveExit()) {
+            world.destroyBody(exit.getBody());
+            world.destroyBody(player.getBody());
+            gsm.pushState(PLAY);
+        }
     }
 
     @Override
@@ -277,8 +287,8 @@ public class Play extends GameState {
         }
 
         //Draw the player and exit
-        player.render(sb);
         exit.render(sb);
+        player.render(sb);
 
         //Render the world
         //b2dr.render(world, b2dCam.combined);
@@ -327,7 +337,7 @@ public class Play extends GameState {
             pshape.setAsBox(16.0f/PPM, 16.0f/PPM);
 
             fdef.shape = pshape;
-            //fdef.isSensor = false;
+            fdef.isSensor = true;
             fdef.filter.categoryBits = categoryBit;
             fdef.filter.maskBits = maskBit;
 

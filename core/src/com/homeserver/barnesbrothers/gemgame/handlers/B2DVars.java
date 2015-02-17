@@ -5,6 +5,8 @@ package com.homeserver.barnesbrothers.gemgame.handlers;
  */
 public class B2DVars {
 
+    public static final int PLAY = 912837;
+
     public static final float PPM = 100;
 
     public static final short REDATTUNEMENT = 0;

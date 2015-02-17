@@ -3,6 +3,7 @@ package com.homeserver.barnesbrothers.gemgame.handlers;
 import com.homeserver.barnesbrothers.gemgame.GemGame;
 import com.homeserver.barnesbrothers.gemgame.states.GameState;
 import com.homeserver.barnesbrothers.gemgame.states.Play;
+import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.PLAY;
 
 import java.util.Stack;
 
@@ -14,8 +15,6 @@ public class GameStateManager {
     private GemGame game;
 
     private Stack<GameState> gameStates;
-
-    public static final int PLAY = 912837;
 
     public GemGame game() { return game; }
 

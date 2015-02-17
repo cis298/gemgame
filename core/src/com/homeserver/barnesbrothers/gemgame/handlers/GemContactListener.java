@@ -2,12 +2,8 @@ package com.homeserver.barnesbrothers.gemgame.handlers;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.homeserver.barnesbrothers.gemgame.GemGame;
-import com.homeserver.barnesbrothers.gemgame.entities.B2DSprite;
 import com.homeserver.barnesbrothers.gemgame.entities.Player;
-
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by david on 2/14/15.
@@ -18,6 +14,8 @@ public class GemContactListener implements ContactListener {
     private Array<Body> yellowGemsToRemove;
     private Array<Body> greenGemsToRemove;
     private Array<Body> blueGemsToRemove;
+
+    private boolean removeExit;
 
     private HashMap<String, Integer> gemToAttunement;
 
@@ -33,6 +31,8 @@ public class GemContactListener implements ContactListener {
         gemToAttunement.put("YellowGem", 1);
         gemToAttunement.put("GreenGem", 2);
         gemToAttunement.put("BlueGem", 3);
+
+        removeExit = false;
     }
 
 
@@ -54,6 +54,8 @@ public class GemContactListener implements ContactListener {
             } else if (fb.getUserData().equals("Attunement")) {
                 //Change attunement
                 setAttunement(fb.getBody().getUserData(), fa.getBody().getUserData());
+            } else if (fb.getUserData().equals("Exit")) {
+                removeExit = true;
             } else {
 
             }
@@ -69,6 +71,8 @@ public class GemContactListener implements ContactListener {
             } else if (fa.getUserData().equals("Attunement")) {
                 //Change attunement
                 setAttunement(fa.getBody().getUserData(), fb.getBody().getUserData());
+            } else if (fa.getUserData().equals("Exit")) {
+                removeExit = true;
             } else {
 
             }
@@ -104,12 +108,16 @@ public class GemContactListener implements ContactListener {
         return blueGemsToRemove;
     }
 
+    public boolean getRemoveExit() {
+        return removeExit;
+    }
+
     private void queueGemsToRemoveGem(Fixture className, Fixture player) {
         Player localPlayer = (Player)player.getBody().getUserData();
         Body gemBody = (Body)className.getBody();
 
         String gemName = className.getBody().getUserData().toString().split("@")[0].split("\\.")[5];
-        System.out.println(gemName);
+        //System.out.println(gemName);
 
         if(localPlayer.getCurrentAttunement() == 0 && gemToAttunement.get(gemName) == 0) {
             redGemsToRemove.add(gemBody);

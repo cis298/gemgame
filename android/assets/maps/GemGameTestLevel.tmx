@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="29" height="15" tilewidth="64" tileheight="64" nextobjectid="181">
+ <tileset firstgid="1" name="gemtileset64" tilewidth="64" tileheight="64">
+  <image source="../gemtileset64.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Unplayable" width="29" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzjZ2Bg4IdiWgJ+HHjUzlE7R+0ctXPUzlE7KbUTAP47BUc=
+  </data>
+ </layer>
+ <objectgroup name="RedAttunement">
+  <object id="1" gid="2147483657" x="192" y="512"/>
+  <object id="2" gid="9" x="1600" y="512"/>
+ </objectgroup>
+ <objectgroup name="YellowAttunement">
+  <object id="15" gid="10" x="1600" y="128"/>
+  <object id="16" gid="2147483658" x="192" y="128"/>
+  <object id="17" gid="2147483658" x="192" y="896"/>
+  <object id="18" gid="10" x="1600" y="896"/>
+ </objectgroup>
+ <objectgroup name="GreenAttunement">
+  <object id="19" gid="11" x="1600" y="640"/>
+  <object id="20" gid="11" x="1600" y="384"/>
+  <object id="21" gid="2147483659" x="192" y="384"/>
+  <object id="22" gid="2147483659" x="192" y="640"/>
+ </objectgroup>
+ <objectgroup name="BlueAttunement">
+  <object id="23" gid="12" x="1600" y="256"/>
+  <object id="24" gid="12" x="1600" y="768"/>
+  <object id="25" gid="2147483660" x="192" y="768"/>
+  <object id="26" gid="2147483660" x="192" y="256"/>
+ </objectgroup>
+ <objectgroup name="RedGem">
+  <object id="117" gid="5" x="896" y="896"/>
+  <object id="118" gid="5" x="960" y="832"/>
+  <object id="119" gid="5" x="1024" y="768"/>
+  <object id="120" gid="5" x="1088" y="704"/>
+  <object id="121" gid="5" x="1152" y="640"/>
+  <object id="122" gid="5" x="1216" y="576"/>
+  <object id="123" gid="5" x="1280" y="512"/>
+  <object id="124" gid="5" x="1216" y="448"/>
+  <object id="125" gid="5" x="1152" y="384"/>
+  <object id="126" gid="5" x="1088" y="320"/>
+  <object id="127" gid="5" x="1024" y="256"/>
+  <object id="128" gid="5" x="960" y="192"/>
+  <object id="129" gid="5" x="896" y="128"/>
+  <object id="130" gid="5" x="832" y="192"/>
+  <object id="131" gid="5" x="768" y="256"/>
+  <object id="132" gid="5" x="704" y="320"/>
+  <object id="133" gid="5" x="640" y="384"/>
+  <object id="134" gid="5" x="576" y="448"/>
+  <object id="135" gid="5" x="512" y="512"/>
+  <object id="136" gid="5" x="576" y="576"/>
+  <object id="137" gid="5" x="640" y="640"/>
+  <object id="138" gid="5" x="704" y="704"/>
+  <object id="139" gid="5" x="768" y="768"/>
+  <object id="140" gid="5" x="832" y="832"/>
+ </objectgroup>
+ <objectgroup name="YellowGem">
+  <object id="52" gid="6" x="832" y="256"/>
+  <object id="54" gid="6" x="832" y="768"/>
+  <object id="56" gid="6" x="576" y="512"/>
+  <object id="57" gid="6" x="1152" y="512"/>
+  <object id="59" gid="6" x="1088" y="448"/>
+  <object id="61" gid="6" x="1024" y="384"/>
+  <object id="63" gid="6" x="960" y="320"/>
+  <object id="65" gid="6" x="896" y="256"/>
+  <object id="68" gid="6" x="768" y="320"/>
+  <object id="70" gid="6" x="704" y="384"/>
+  <object id="72" gid="6" x="640" y="448"/>
+  <object id="75" gid="6" x="640" y="576"/>
+  <object id="77" gid="6" x="704" y="640"/>
+  <object id="79" gid="6" x="768" y="704"/>
+  <object id="82" gid="6" x="896" y="768"/>
+  <object id="83" gid="6" x="960" y="704"/>
+  <object id="85" gid="6" x="1024" y="640"/>
+  <object id="87" gid="6" x="1088" y="576"/>
+  <object id="141" gid="6" x="896" y="192"/>
+  <object id="142" gid="6" x="896" y="832"/>
+  <object id="143" gid="6" x="960" y="768"/>
+  <object id="144" gid="6" x="1024" y="704"/>
+  <object id="145" gid="6" x="1088" y="640"/>
+  <object id="146" gid="6" x="1152" y="576"/>
+  <object id="147" gid="6" x="1216" y="512"/>
+  <object id="148" gid="6" x="1152" y="448"/>
+  <object id="149" gid="6" x="1088" y="384"/>
+  <object id="150" gid="6" x="1024" y="320"/>
+  <object id="151" gid="6" x="960" y="256"/>
+  <object id="152" gid="6" x="832" y="320"/>
+  <object id="153" gid="6" x="768" y="384"/>
+  <object id="154" gid="6" x="704" y="448"/>
+  <object id="155" gid="6" x="640" y="512"/>
+  <object id="156" gid="6" x="704" y="576"/>
+  <object id="157" gid="6" x="768" y="640"/>
+  <object id="158" gid="6" x="832" y="704"/>
+ </objectgroup>
+ <objectgroup name="GreenGem">
+  <object id="160" gid="7" x="896" y="320"/>
+  <object id="161" gid="7" x="832" y="384"/>
+  <object id="162" gid="7" x="768" y="448"/>
+  <object id="163" gid="7" x="704" y="512"/>
+  <object id="164" gid="7" x="768" y="576"/>
+  <object id="165" gid="7" x="832" y="640"/>
+  <object id="166" gid="7" x="896" y="704"/>
+  <object id="167" gid="7" x="960" y="640"/>
+  <object id="168" gid="7" x="1024" y="576"/>
+  <object id="169" gid="7" x="1088" y="512"/>
+  <object id="170" gid="7" x="1024" y="448"/>
+  <object id="171" gid="7" x="960" y="384"/>
+ </objectgroup>
+ <objectgroup name="BlueGem">
+  <object id="101" gid="8" x="832" y="448"/>
+  <object id="107" gid="8" x="896" y="576"/>
+  <object id="108" gid="8" x="832" y="576"/>
+  <object id="110" gid="8" x="960" y="512"/>
+  <object id="111" gid="8" x="896" y="448"/>
+  <object id="172" gid="8" x="896" y="384"/>
+  <object id="173" gid="8" x="960" y="448"/>
+  <object id="174" gid="8" x="1024" y="512"/>
+  <object id="175" gid="8" x="960" y="576"/>
+  <object id="176" gid="8" x="896" y="640"/>
+  <object id="177" gid="8" x="832" y="512"/>
+  <object id="178" gid="8" x="768" y="512"/>
+ </objectgroup>
+ <objectgroup name="Exit">
+  <object id="159" gid="13" x="896" y="512"/>
+ </objectgroup>
+ <objectgroup name="Spike">
+  <object id="115" gid="14" x="448" y="832"/>
+  <object id="116" gid="14" x="448" y="192"/>
+  <object id="179" gid="14" x="1344" y="832"/>
+  <object id="180" gid="14" x="1344" y="192"/>
+ </objectgroup>
+</map>
