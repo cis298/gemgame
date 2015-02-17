@@ -1,7 +1,5 @@
 package com.homeserver.barnesbrothers.gemgame.states;
 
-import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.PPM;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -20,7 +18,8 @@ import com.homeserver.barnesbrothers.gemgame.handlers.GameStateManager;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemContactListener;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemInput;
 
-import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.PLAY;
+import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.*;
+import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.SSIZE;
 
 /**
  * Created by david on 2/9/15.
@@ -63,7 +62,7 @@ public class Play extends GameState {
         b2dr = new Box2DDebugRenderer();
 
         // load tile map
-        tileMap = new TmxMapLoader().load("maps/GemTest2.tmx");
+        tileMap = new TmxMapLoader().load("maps/GemGameTestLevel.tmx");
         tmr = new OrthogonalTiledMapRenderer(tileMap);
 
         redGems = new Array<RedGem>();
@@ -81,7 +80,7 @@ public class Play extends GameState {
         stuckAtZeroV = false;
 
         short playerInteraction = B2DVars.BIT_RED_GEM | B2DVars.BIT_YELLOW_GEM | B2DVars.BIT_GREEN_GEM | B2DVars.BIT_BLUE_GEM |
-                                B2DVars.BIT_RED_ATTUNMENT | B2DVars.BIT_YELLOW_ATTUNMENT | B2DVars.BIT_GREEN_ATTUNMENT | B2DVars.BIT_BLUE_ATTUNMENT |
+                                B2DVars.BIT_RED_ATTUNEMENT | B2DVars.BIT_YELLOW_ATTUNEMENT | B2DVars.BIT_GREEN_ATTUNEMENT | B2DVars.BIT_BLUE_ATTUNEMENT |
                                 B2DVars.BIT_SPIKE | B2DVars.BIT_EXIT;
 
         createPlayer(B2DVars.BIT_PLAYER, playerInteraction, BodyDef.BodyType.DynamicBody);
@@ -92,10 +91,10 @@ public class Play extends GameState {
         createEntities("GreenGems", B2DVars.BIT_GREEN_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
         createEntities("BlueGems", B2DVars.BIT_BLUE_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
-        createEntities("RedAttunment", B2DVars.BIT_RED_ATTUNMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("YellowAttunment", B2DVars.BIT_YELLOW_ATTUNMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("GreenAttunment", B2DVars.BIT_GREEN_ATTUNMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("BlueAttunment", B2DVars.BIT_BLUE_ATTUNMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        createEntities("RedAttunement", B2DVars.BIT_RED_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        createEntities("YellowAttunement", B2DVars.BIT_YELLOW_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        createEntities("GreenAttunement", B2DVars.BIT_GREEN_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        createEntities("BlueAttunement", B2DVars.BIT_BLUE_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
         createEntities("Spikes", B2DVars.BIT_SPIKE, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
@@ -302,10 +301,11 @@ public class Play extends GameState {
 
     private void createPlayer(short categoryBit, short maskBit, BodyDef.BodyType bType) {
         CircleShape shape = new CircleShape();
-        shape.setRadius(12 / PPM);
+        shape.setRadius((HSSIZE-8) / PPM);
 
         BodyDef bdef = new BodyDef();
-        bdef.position.set(16 / PPM, (GemGame.V_HEIGHT - 16)/PPM);
+        //bdef.position.set(HSSIZE / PPM, (GemGame.V_HEIGHT - HSSIZE)/PPM);
+        bdef.position.set(((3*SSIZE) + HSSIZE) / PPM, (14*SSIZE + HSSIZE)/PPM);
         bdef.type = bType;
         Body body = world.createBody(bdef);
 
@@ -328,13 +328,13 @@ public class Play extends GameState {
         bdef.type = bType;
 
         for(MapObject mo : layer.getObjects()) {
-            float x = ((Float) mo.getProperties().get("x") + 16)/PPM;
-            float y = ((Float) mo.getProperties().get("y") + 16)/PPM;
+            float x = ((Float) mo.getProperties().get("x") + HSSIZE)/PPM;
+            float y = ((Float) mo.getProperties().get("y") + HSSIZE)/PPM;
 
             bdef.position.set(x, y);
 
             PolygonShape pshape = new PolygonShape();
-            pshape.setAsBox(16.0f/PPM, 16.0f/PPM);
+            pshape.setAsBox(HSSIZE/PPM, HSSIZE/PPM);
 
             fdef.shape = pshape;
             fdef.isSensor = true;
@@ -360,13 +360,13 @@ public class Play extends GameState {
         for(MapObject mo : layer.getObjects()) {
             bdef.type = bType;
 
-            float x = ((Float) mo.getProperties().get("x") + 16)/PPM;
-            float y = ((Float) mo.getProperties().get("y") + 16)/PPM;
+            float x = ((Float) mo.getProperties().get("x") + HSSIZE)/PPM;
+            float y = ((Float) mo.getProperties().get("y") + HSSIZE)/PPM;
 
             bdef.position.set(x,y);
 
             PolygonShape pshape = new PolygonShape();
-            pshape.setAsBox(12.0f/PPM,12.0f/PPM);
+            pshape.setAsBox((HSSIZE-8)/PPM,(HSSIZE-8)/PPM);
 
             fdef.shape = pshape;
             fdef.isSensor = false;
@@ -395,25 +395,25 @@ public class Play extends GameState {
                 BlueGem blueGem = new BlueGem(body);
                 blueGems.add(blueGem);
                 body.setUserData(blueGem);
-            } else if (layerName.equals("RedAttunment")) {
+            } else if (layerName.equals("RedAttunement")) {
                 fdef.isSensor = true;
                 body.createFixture(fdef).setUserData("Attunement");
                 RedAttunement redAttunement = new RedAttunement(body);
                 redAttunments.add(redAttunement);
                 body.setUserData(redAttunement);
-            } else if (layerName.equals("YellowAttunment")) {
+            } else if (layerName.equals("YellowAttunement")) {
                 fdef.isSensor = true;
                 body.createFixture(fdef).setUserData("Attunement");
                 YellowAttunement yellowAttunement = new YellowAttunement(body);
                 yellowAttunments.add(yellowAttunement);
                 body.setUserData(yellowAttunement);
-            } else if (layerName.equals("GreenAttunment")) {
+            } else if (layerName.equals("GreenAttunement")) {
                 fdef.isSensor = true;
                 body.createFixture(fdef).setUserData("Attunement");
                 GreenAttunement greenAttunement = new GreenAttunement(body);
                 greenAttunments.add(greenAttunement);
                 body.setUserData(greenAttunement);
-            } else if (layerName.equals("BlueAttunment")) {
+            } else if (layerName.equals("BlueAttunement")) {
                 fdef.isSensor = true;
                 body.createFixture(fdef).setUserData("Attunement");
                 BlueAttunement blueAttunement = new BlueAttunement(body);

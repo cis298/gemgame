@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="29" height="15" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="gemtileset64" tilewidth="64" tileheight="64">
+  <image source="../gemtileset64.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Unplayable" width="29" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzjZ2Bg4IdiWgJ+HHjUzlE7R+0ctXPUzlE7KbUTAP47BUc=
+  </data>
+ </layer>
+ <objectgroup name="RedAttunement"/>
+ <objectgroup name="YellowAttunement"/>
+ <objectgroup name="GreenAttunement"/>
+ <objectgroup name="BlueAttunement"/>
+ <objectgroup name="RedGems"/>
+ <objectgroup name="YellowGems"/>
+ <objectgroup name="GreenGems"/>
+ <objectgroup name="BlueGems"/>
+ <objectgroup name="Exit"/>
+ <objectgroup name="Spikes"/>
+</map>

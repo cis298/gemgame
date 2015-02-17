@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.homeserver.barnesbrothers.gemgame.GemGame;
 import com.homeserver.barnesbrothers.gemgame.handlers.B2DVars;
 
-import javax.xml.soap.Text;
+import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.SSIZE;
 
 /**
  * Created by david on 2/13/15.
@@ -24,7 +24,7 @@ public class Player extends B2DSprite {
         currentAttunement = B2DVars.REDATTUNEMENT;
 
         tex = GemGame.res.getTexture("tiles");
-        TextureRegion sprite = TextureRegion.split(tex, 32, 32)[0][0];
+        TextureRegion sprite = TextureRegion.split(tex, SSIZE, SSIZE)[0][0];
         sprites = new TextureRegion[1];
         sprites[0] = sprite;
 
@@ -40,7 +40,7 @@ public class Player extends B2DSprite {
     }
 
     public void updateTexture() {
-        sprites[0] = TextureRegion.split(tex, 32, 32)[0][currentAttunement];
+        sprites[0] = TextureRegion.split(tex, SSIZE, SSIZE)[0][currentAttunement];
         setAnimation(sprites, 1 / 12f);
     }
 }

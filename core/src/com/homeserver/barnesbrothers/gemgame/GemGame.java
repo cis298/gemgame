@@ -14,8 +14,8 @@ import com.homeserver.barnesbrothers.gemgame.handlers.GemInputProcessor;
 public class GemGame extends ApplicationAdapter {
 
     public static final String TITLE = "Gem Test";
-    public static final int V_WIDTH = 640;
-    public static final int V_HEIGHT = 480;
+    public static final int V_WIDTH = 1856;
+    public static final int V_HEIGHT = 1080;
     public static final int SCALE = 2;
 
     public static final float STEP = 1/60f;
@@ -35,7 +35,7 @@ public class GemGame extends ApplicationAdapter {
         Gdx.input.setInputProcessor(new GemInputProcessor());
 
         res = new Content();
-        res.loadTexture("gemtileset.png", "tiles");
+        res.loadTexture("gemtileset64.png", "tiles");
         sb = new SpriteBatch();
         this.cam = new OrthographicCamera();
         this.cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
