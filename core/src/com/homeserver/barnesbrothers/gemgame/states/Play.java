@@ -106,7 +106,7 @@ public class Play extends GameState {
 
     @Override
     public void handleInput() {
-        if (GemInput.isDown(GemInput.UP) && player.getPosition().y <= (GemGame.V_HEIGHT - (player.getHeight()/2))/PPM) {
+        if (GemInput.isDown(GemInput.UP) && player.getPosition().y <= (SSIZE*15 - (player.getHeight()/2))/PPM) {
             player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 1.5f);
         } else if (GemInput.isDown(GemInput.DOWN) && player.getPosition().y >= (0 + (player.getHeight()/2))/PPM) {
             player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, -1.5f);
