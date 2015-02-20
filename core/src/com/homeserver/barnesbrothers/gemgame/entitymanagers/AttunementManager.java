@@ -6,6 +6,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.homeserver.barnesbrothers.gemgame.entities.B2DSprite;
+import com.homeserver.barnesbrothers.gemgame.entities.attunements.BlueAttunement;
+import com.homeserver.barnesbrothers.gemgame.entities.attunements.GreenAttunement;
+import com.homeserver.barnesbrothers.gemgame.entities.attunements.RedAttunement;
+import com.homeserver.barnesbrothers.gemgame.entities.attunements.YellowAttunement;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.BlueGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.GreenGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.RedGem;
@@ -26,6 +30,10 @@ public class AttunementManager {
 
     public AttunementManager() {
         attunements = new HashMap<String, Array<B2DSprite>>();
+        attunements.put("RedAttunement", new Array<B2DSprite>());
+        attunements.put("YellowAttunement", new Array<B2DSprite>());
+        attunements.put("GreenAttunement", new Array<B2DSprite>());
+        attunements.put("BlueAttunement", new Array<B2DSprite>());
     }
 
     public HashMap<String, Array<B2DSprite>> getAttunements() {
@@ -45,7 +53,7 @@ public class AttunementManager {
         bdef.type = BodyDef.BodyType.StaticBody;
 
         fdef.shape = pshape;
-        fdef.isSensor = false;
+        fdef.isSensor = true;
         fdef.filter.maskBits = B2DVars.BIT_PLAYER;
 
         pshape.setAsBox((HSSIZE - 8) / PPM, (HSSIZE - 8) / PPM);
@@ -63,28 +71,28 @@ public class AttunementManager {
 
                 Body body = world.createBody(bdef);
 
-                if (layerName.equals("RedGems")) {
-                    RedGem redGem = new RedGem(body);
-                    attunements.get(layerName).add(redGem);
-                    body.setUserData(redGem);
+                if (layerName.equals("RedAttunement")) {
+                    RedAttunement redAttunement = new RedAttunement(body);
+                    attunements.get(layerName).add(redAttunement);
+                    body.setUserData(redAttunement);
                     fdef.filter.categoryBits = B2DVars.BIT_RED_ATTUNEMENT;
-                } else if (layerName.equals("YellowGems")) {
-                    YellowGem yellowGem = new YellowGem(body);
-                    attunements.get(layerName).add(yellowGem);
-                    body.setUserData(yellowGem);
+                } else if (layerName.equals("YellowAttunement")) {
+                    YellowAttunement yellowAttunement = new YellowAttunement(body);
+                    attunements.get(layerName).add(yellowAttunement);
+                    body.setUserData(yellowAttunement);
                     fdef.filter.categoryBits = B2DVars.BIT_YELLOW_ATTUNEMENT;
-                } else if (layerName.equals("GreenGems")) {
-                    GreenGem greenGem = new GreenGem(body);
-                    attunements.get(layerName).add(greenGem);
-                    body.setUserData(greenGem);
+                } else if (layerName.equals("GreenAttunement")) {
+                    GreenAttunement greenAttunement = new GreenAttunement(body);
+                    attunements.get(layerName).add(greenAttunement);
+                    body.setUserData(greenAttunement);
                     fdef.filter.categoryBits = B2DVars.BIT_GREEN_ATTUNEMENT;
-                } else if (layerName.equals("BlueGems")) {
-                    BlueGem blueGem = new BlueGem(body);
-                    attunements.get(layerName).add(blueGem);
-                    body.setUserData(blueGem);
+                } else if (layerName.equals("BlueAttunement")) {
+                    BlueAttunement blueAttunement = new BlueAttunement(body);
+                    attunements.get(layerName).add(blueAttunement);
+                    body.setUserData(blueAttunement);
                     fdef.filter.categoryBits = B2DVars.BIT_BLUE_ATTUNEMENT;
                 }
-                body.createFixture(fdef).setUserData("Gem");
+                body.createFixture(fdef).setUserData("Attunement");
             }
         }
     }

@@ -21,10 +21,14 @@ import com.homeserver.barnesbrothers.gemgame.entities.gems.BlueGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.GreenGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.RedGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.YellowGem;
+import com.homeserver.barnesbrothers.gemgame.entitymanagers.AttunementManager;
+import com.homeserver.barnesbrothers.gemgame.entitymanagers.GemManager;
 import com.homeserver.barnesbrothers.gemgame.handlers.B2DVars;
 import com.homeserver.barnesbrothers.gemgame.handlers.GameStateManager;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemContactListener;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemInput;
+
+import java.util.Map;
 
 import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.*;
 import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.SSIZE;
@@ -47,15 +51,18 @@ public class Play extends GameState {
     private Player player;
     private Exit exit;
 
-    private Array<RedGem> redGems;
-    private Array<YellowGem> yellowGems;
-    private Array<GreenGem> greenGems;
-    private Array<BlueGem> blueGems;
+    private GemManager gemManager;
+    private AttunementManager attunementManager;
 
-    private Array<RedAttunement> redAttunments;
-    private Array<YellowAttunement> yellowAttunments;
-    private Array<GreenAttunement> greenAttunments;
-    private Array<BlueAttunement> blueAttunements;
+    //private Array<RedGem> redGems;
+    //private Array<YellowGem> yellowGems;
+    //private Array<GreenGem> greenGems;
+    //private Array<BlueGem> blueGems;
+
+    //private Array<RedAttunement> redAttunments;
+    //private Array<YellowAttunement> yellowAttunments;
+    //private Array<GreenAttunement> greenAttunments;
+    //private Array<BlueAttunement> blueAttunements;
 
     private Array<Spike> spikes;
 
@@ -73,15 +80,18 @@ public class Play extends GameState {
         tileMap = new TmxMapLoader().load("maps/GemGameTestLevel.tmx");
         tmr = new OrthogonalTiledMapRenderer(tileMap);
 
-        redGems = new Array<RedGem>();
-        yellowGems = new Array<YellowGem>();
-        greenGems = new Array<GreenGem>();
-        blueGems = new Array<BlueGem>();
+        gemManager = new GemManager();
+        attunementManager = new AttunementManager();
 
-        redAttunments = new Array<RedAttunement>();
-        yellowAttunments = new Array<YellowAttunement>();
-        greenAttunments = new Array<GreenAttunement>();
-        blueAttunements = new Array<BlueAttunement>();
+        //redGems = new Array<RedGem>();
+        //yellowGems = new Array<YellowGem>();
+        //greenGems = new Array<GreenGem>();
+        //blueGems = new Array<BlueGem>();
+
+        //redAttunments = new Array<RedAttunement>();
+        //yellowAttunments = new Array<YellowAttunement>();
+        //greenAttunments = new Array<GreenAttunement>();
+        //blueAttunements = new Array<BlueAttunement>();
 
         spikes = new Array<Spike>();
 
@@ -94,17 +104,22 @@ public class Play extends GameState {
         createPlayer(B2DVars.BIT_PLAYER, playerInteraction, BodyDef.BodyType.DynamicBody);
         createEntity("Exit", B2DVars.BIT_EXIT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
-        createEntities("RedGems", B2DVars.BIT_RED_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("YellowGems", B2DVars.BIT_YELLOW_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("GreenGems", B2DVars.BIT_GREEN_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("BlueGems", B2DVars.BIT_BLUE_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("RedGems", B2DVars.BIT_RED_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("YellowGems", B2DVars.BIT_YELLOW_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("GreenGems", B2DVars.BIT_GREEN_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("BlueGems", B2DVars.BIT_BLUE_GEM, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
-        createEntities("RedAttunement", B2DVars.BIT_RED_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("YellowAttunement", B2DVars.BIT_YELLOW_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("GreenAttunement", B2DVars.BIT_GREEN_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        createEntities("BlueAttunement", B2DVars.BIT_BLUE_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("RedAttunement", B2DVars.BIT_RED_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("YellowAttunement", B2DVars.BIT_YELLOW_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("GreenAttunement", B2DVars.BIT_GREEN_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("BlueAttunement", B2DVars.BIT_BLUE_ATTUNEMENT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
         createEntities("Spikes", B2DVars.BIT_SPIKE, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+
+        String[] gemLayers = {"RedGems","YellowGems","GreenGems","BlueGems"};
+        gemManager.createGems(gemLayers, tileMap, world);
+        String[] attunementLayers = {"RedAttunement","YellowAttunement","GreenAttunement","BlueAttunement"};
+        attunementManager.createAttunements(attunementLayers, tileMap, world);
 
         player.getBody().setLinearVelocity(4.0f, 0);
 
@@ -145,6 +160,7 @@ public class Play extends GameState {
 
         world.step(dt, 6, 2);
 
+        /*
         //Update all of the Gems
         for(int i = 0; i < redGems.size; i++) {
             redGems.get(i).update(dt);
@@ -172,11 +188,23 @@ public class Play extends GameState {
         for(int i = 0; i < blueAttunements.size; i++) {
             blueAttunements.get(i).update(dt);
         }
+        */
+        for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
+            for (B2DSprite gem : entry.getValue()) {
+                gem.update(dt);
+            }
+        }
+
+        //for (Map.Entry<String, Array<B2DSprite>> entry : attunementManager.getAttunements().entrySet()) {
+        //    for (B2DSprite attunement : entry.getValue()) {
+        //        attunement.update(dt);
+        //    }
+        //}
 
         //Update the spikes
-        for(int i = 0; i < spikes.size; i++) {
-            spikes.get(i).update(dt);
-        }
+        //for(int i = 0; i < spikes.size; i++) {
+        //    spikes.get(i).update(dt);
+        //}
 
         //Update the player and the exit
         player.update(dt);
@@ -215,6 +243,8 @@ public class Play extends GameState {
             stuckAtZeroV = false;
         }
 
+        gemManager.removeGems(world, cl);
+        /*
         //Remove Gems
         Array<Body> redGemsToRemove = cl.getRedGemsToRemove();
         Array<Body> yellowGemsToRemove = cl.getYellowGemsToRemove();
@@ -223,22 +253,26 @@ public class Play extends GameState {
 
         for(int i = 0; i < redGemsToRemove.size; i++) {
             Body b = redGemsToRemove.get(i);
-            redGems.removeValue((RedGem) b.getUserData(), true);
+            //redGems.removeValue((RedGem) b.getUserData(), true);
+            gemManager.getGems().get("RedGems").removeValue((RedGem) b.getUserData(), true);
             world.destroyBody(b);
         }
         for(int i = 0; i < yellowGemsToRemove.size; i++) {
             Body b = yellowGemsToRemove.get(i);
-            yellowGems.removeValue((YellowGem) b.getUserData(), true);
+            //yellowGems.removeValue((YellowGem) b.getUserData(), true);
+            gemManager.getGems().get("YellowGems").removeValue((YellowGem) b.getUserData(), true);
             world.destroyBody(b);
         }
         for(int i = 0; i < greenGemsToRemove.size; i++) {
             Body b = greenGemsToRemove.get(i);
-            greenGems.removeValue((GreenGem) b.getUserData(), true);
+            //greenGems.removeValue((GreenGem) b.getUserData(), true);
+            gemManager.getGems().get("GreenGems").removeValue((GreenGem) b.getUserData(), true);
             world.destroyBody(b);
         }
         for(int i = 0; i < blueGemsToRemove.size; i++) {
             Body b = blueGemsToRemove.get(i);
-            blueGems.removeValue((BlueGem) b.getUserData(), true);
+            //blueGems.removeValue((BlueGem) b.getUserData(), true);
+            gemManager.getGems().get("BlueGems").removeValue((BlueGem) b.getUserData(), true);
             world.destroyBody(b);
         }
 
@@ -246,7 +280,7 @@ public class Play extends GameState {
         yellowGemsToRemove.clear();
         greenGemsToRemove.clear();
         blueGemsToRemove.clear();
-
+*/
         //Level done. Remove exit and player, then start new.
         if (cl.getRemoveExit()) {
             world.destroyBody(exit.getBody());
@@ -261,7 +295,7 @@ public class Play extends GameState {
         tmr.render();
 
         sb.setProjectionMatrix(cam.combined);
-
+/*
         //Draw the Gems
         for(int i = 0; i < redGems.size; i++) {
             redGems.get(i).render(sb);
@@ -288,6 +322,18 @@ public class Play extends GameState {
         }
         for(int i = 0; i < blueAttunements.size; i++) {
             blueAttunements.get(i).render(sb);
+        }
+*/
+        for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
+            for (B2DSprite gem : entry.getValue()) {
+                gem.render(sb);
+            }
+        }
+
+        for (Map.Entry<String, Array<B2DSprite>> entry : attunementManager.getAttunements().entrySet()) {
+            for (B2DSprite attunement : entry.getValue()) {
+                attunement.render(sb);
+            }
         }
 
         //Draw the spikes
@@ -384,7 +430,7 @@ public class Play extends GameState {
             fdef.filter.maskBits = maskBit;
 
             Body body = world.createBody(bdef);
-
+/*
             if (layerName.equals("RedGems")) {
                 body.createFixture(fdef).setUserData("Gem");
                 RedGem redGem = new RedGem(body);
@@ -430,11 +476,11 @@ public class Play extends GameState {
                 blueAttunements.add(blueAttunement);
                 body.setUserData(blueAttunement);
             } else {
-                body.createFixture(fdef).setUserData("Spike");
+*/                body.createFixture(fdef).setUserData("Spike");
                 Spike spike = new Spike(body);
                 spikes.add(spike);
                 body.setUserData(spike);
-            }
+//            }
 
         }
 

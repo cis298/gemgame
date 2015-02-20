@@ -11,6 +11,7 @@ import com.homeserver.barnesbrothers.gemgame.entities.gems.GreenGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.RedGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.YellowGem;
 import com.homeserver.barnesbrothers.gemgame.handlers.B2DVars;
+import com.homeserver.barnesbrothers.gemgame.handlers.GemContactListener;
 
 import java.util.HashMap;
 
@@ -26,6 +27,10 @@ public class GemManager {
 
     public GemManager() {
         gems = new HashMap<String, Array<B2DSprite>>();
+        gems.put("RedGems",new Array<B2DSprite>());
+        gems.put("YellowGems",new Array<B2DSprite>());
+        gems.put("GreenGems",new Array<B2DSprite>());
+        gems.put("BlueGems",new Array<B2DSprite>());
     }
 
     public HashMap<String, Array<B2DSprite>> getGems() {
@@ -87,5 +92,43 @@ public class GemManager {
                 body.createFixture(fdef).setUserData("Gem");
             }
         }
+    }
+
+    public void removeGems(World world, GemContactListener cl) {
+        //Remove Gems
+        Array<Body> redGemsToRemove = cl.getRedGemsToRemove();
+        Array<Body> yellowGemsToRemove = cl.getYellowGemsToRemove();
+        Array<Body> greenGemsToRemove = cl.getGreenGemsToRemove();
+        Array<Body> blueGemsToRemove = cl.getBlueGemsToRemove();
+
+        for(int i = 0; i < redGemsToRemove.size; i++) {
+            Body b = redGemsToRemove.get(i);
+            //redGems.removeValue((RedGem) b.getUserData(), true);
+            gems.get("RedGems").removeValue((RedGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+        for(int i = 0; i < yellowGemsToRemove.size; i++) {
+            Body b = yellowGemsToRemove.get(i);
+            //yellowGems.removeValue((YellowGem) b.getUserData(), true);
+            gems.get("YellowGems").removeValue((YellowGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+        for(int i = 0; i < greenGemsToRemove.size; i++) {
+            Body b = greenGemsToRemove.get(i);
+            //greenGems.removeValue((GreenGem) b.getUserData(), true);
+            gems.get("GreenGems").removeValue((GreenGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+        for(int i = 0; i < blueGemsToRemove.size; i++) {
+            Body b = blueGemsToRemove.get(i);
+            //blueGems.removeValue((BlueGem) b.getUserData(), true);
+            gems.get("BlueGems").removeValue((BlueGem) b.getUserData(), true);
+            world.destroyBody(b);
+        }
+
+        redGemsToRemove.clear();
+        yellowGemsToRemove.clear();
+        greenGemsToRemove.clear();
+        blueGemsToRemove.clear();
     }
 }
