@@ -11,6 +11,8 @@ public class B2DVars {
     public static final int HSSIZE = 32;
     public static final float PPM = 150.0f;
 
+    public static final float SPEED = 4.0f;
+
     public static final short REDATTUNEMENT = 0;
     public static final short YELLOWATTUNEMENT = 1;
     public static final short GREENATTUNEMENT = 2;

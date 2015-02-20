@@ -209,7 +209,7 @@ public class Play extends GameState {
         //Update the player and the exit
         player.update(dt);
         exit.update(dt);
-
+/*
         //Check to see if the player has no x velocity
         if (player.getBody().getLinearVelocity().x != 0.0f) {
             stuckAtZeroV = false;
@@ -242,7 +242,7 @@ public class Play extends GameState {
             player.getBody().setLinearVelocity(-4.0f, player.getBody().getLinearVelocity().y);
             stuckAtZeroV = false;
         }
-
+*/
         gemManager.removeGems(world, cl);
         /*
         //Remove Gems
