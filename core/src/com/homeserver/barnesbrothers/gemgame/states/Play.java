@@ -120,7 +120,7 @@ public class Play extends GameState {
             float playerY = player.getBody().getPosition().y;
 
             //Adding an epsilon here so that the player doesn't vibrate. Might be a better way to do this.
-            if (touch.y > playerY+.01 && playerY <= (GemGame.V_HEIGHT - (player.getHeight() / 2)) / PPM) {
+            if (touch.y > playerY+.01 && playerY <= (SSIZE*15 - (player.getHeight() / 2)) / PPM) {
                 player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 1.5f);
             } else if (touch.y < playerY-.01 && playerY >= (0 + (player.getHeight() / 2)) / PPM) {
                 player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, -1.5f);
