@@ -116,8 +116,7 @@ public class GemContactListener implements ContactListener {
         Player localPlayer = (Player)player.getBody().getUserData();
         Body gemBody = (Body)className.getBody();
 
-        String gemName = className.getBody().getUserData().toString().split("@")[0].split("\\.")[5];
-        //System.out.println(gemName);
+        String gemName = className.getBody().getUserData().toString().split("@")[0].split("\\.")[6];
 
         if(localPlayer.getCurrentAttunement() == 0 && gemToAttunement.get(gemName) == 0) {
             redGemsToRemove.add(gemBody);
@@ -133,19 +132,19 @@ public class GemContactListener implements ContactListener {
     private void setAttunement(Object className, Object player) {
         Player localPlayer = (Player)player;
 
-        if(className.toString().split("@")[0].split("\\.")[5].equals("RedAttunement")) {
+        if(className.toString().split("@")[0].split("\\.")[6].equals("RedAttunement")) {
             localPlayer.setCurrentAttunement(B2DVars.REDATTUNEMENT);
             localPlayer.updateTexture();
         }
-        if(className.toString().split("@")[0].split("\\.")[5].equals("YellowAttunement")) {
+        if(className.toString().split("@")[0].split("\\.")[6].equals("YellowAttunement")) {
             localPlayer.setCurrentAttunement(B2DVars.YELLOWATTUNEMENT);
             localPlayer.updateTexture();
         }
-        if(className.toString().split("@")[0].split("\\.")[5].equals("GreenAttunement")) {
+        if(className.toString().split("@")[0].split("\\.")[6].equals("GreenAttunement")) {
             localPlayer.setCurrentAttunement(B2DVars.GREENATTUNEMENT);
             localPlayer.updateTexture();
         }
-        if(className.toString().split("@")[0].split("\\.")[5].equals("BlueAttunement")) {
+        if(className.toString().split("@")[0].split("\\.")[6].equals("BlueAttunement")) {
             localPlayer.setCurrentAttunement(B2DVars.BLUEATTUNEMENT);
             localPlayer.updateTexture();
         }
