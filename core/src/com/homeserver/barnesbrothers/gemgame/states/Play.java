@@ -49,19 +49,15 @@ public class Play extends GameState {
     private TiledMap tileMap;
     private OrthogonalTiledMapRenderer tmr;
 
-    private Player player;
-    private Exit exit;
-
     private GemManager gemManager;
     private AttunementManager attunementManager;
     private SpikeManager spikeManager;
     private PlayerAndExitManager playerAndExitManager;
 
-    //private Array<Spike> spikes;
-
     public Play(GameStateManager gsm) {
         super(gsm);
 
+        //Create world, contact listener, abd debugger.
         world = new World(new Vector2(0,0), true);
         cl = new GemContactListener();
         world.setContactListener(cl);
@@ -71,42 +67,36 @@ public class Play extends GameState {
         tileMap = new TmxMapLoader().load("maps/GemGameTestLevel.tmx");
         tmr = new OrthogonalTiledMapRenderer(tileMap);
 
+        //Create the managers for the entities
         gemManager = new GemManager();
         attunementManager = new AttunementManager();
         spikeManager = new SpikeManager();
         playerAndExitManager = new PlayerAndExitManager();
 
-        //spikes = new Array<Spike>();
-
-
-        short playerInteraction = B2DVars.BIT_RED_GEM | B2DVars.BIT_YELLOW_GEM | B2DVars.BIT_GREEN_GEM | B2DVars.BIT_BLUE_GEM |
-                                B2DVars.BIT_RED_ATTUNEMENT | B2DVars.BIT_YELLOW_ATTUNEMENT | B2DVars.BIT_GREEN_ATTUNEMENT | B2DVars.BIT_BLUE_ATTUNEMENT |
-                                B2DVars.BIT_SPIKE | B2DVars.BIT_EXIT;
-
-        createPlayer(B2DVars.BIT_PLAYER, playerInteraction, BodyDef.BodyType.DynamicBody);
-        //createEntity("Exit", B2DVars.BIT_EXIT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-
-        //createEntities("Spikes", B2DVars.BIT_SPIKE, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
-        //playerAndExitManager.createPlayer(tileMap, world);
-
+        //Create the Player, Exit, and Spikes
+        playerAndExitManager.createPlayer(tileMap, world);
         playerAndExitManager.createExit("Exit", tileMap, world);
-        //this.exit = (Exit)playerAndExitManager.getExit();
-
         spikeManager.createSpikes("Spikes", tileMap, world);
 
+        //Create the Gems and Attunements
         String[] gemLayers = {"RedGems","YellowGems","GreenGems","BlueGems"};
         gemManager.createGems(gemLayers, tileMap, world);
         String[] attunementLayers = {"RedAttunement","YellowAttunement","GreenAttunement","BlueAttunement"};
         attunementManager.createAttunements(attunementLayers, tileMap, world);
 
-        player.getBody().setLinearVelocity(4.0f, 0);
+        //Set the initial speed for the player
+        playerAndExitManager.getPlayer().getBody().setLinearVelocity(B2DVars.SPEED, 0);
 
+        //Setup Cam
         b2dCam = new OrthographicCamera();
         b2dCam.setToOrtho(false, GemGame.V_WIDTH / PPM, GemGame.V_HEIGHT / PPM);
     }
 
     @Override
     public void handleInput() {
+        //Make a local variable for the player so we don't have to constantly get it from the manager.
+        Player player = (Player)playerAndExitManager.getPlayer();
+
         if (GemInput.isDown(GemInput.UP) && player.getPosition().y <= (SSIZE*15 - (player.getHeight()/2))/PPM) {
             player.getBody().setLinearVelocity(player.getBody().getLinearVelocity().x, 1.5f);
         } else if (GemInput.isDown(GemInput.DOWN) && player.getPosition().y >= (0 + (player.getHeight()/2))/PPM) {
@@ -138,33 +128,30 @@ public class Play extends GameState {
 
         world.step(dt, 6, 2);
 
+        //Update the Gems ### May not need this ###
         for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
             for (B2DSprite gem : entry.getValue()) {
                 gem.update(dt);
             }
         }
 
+        //Update the Attunements ### Not Needed ###
         //for (Map.Entry<String, Array<B2DSprite>> entry : attunementManager.getAttunements().entrySet()) {
         //    for (B2DSprite attunement : entry.getValue()) {
         //        attunement.update(dt);
         //    }
         //}
 
-        //Update the spikes
-        //for(int i = 0; i < spikes.size; i++) {
-        //    spikes.get(i).update(dt);
-        //}
 
-        //Update the player and the exit
-        player.update(dt);
-        //exit.update(dt);
+        //Update the player
+        playerAndExitManager.getPlayer().update(dt);
 
         gemManager.removeGems(world, cl);
 
         //Level done. Remove exit and player, then start new.
         if (cl.getRemoveExit()) {
             world.destroyBody(playerAndExitManager.getExit().getBody());
-            world.destroyBody(player.getBody());
+            world.destroyBody(playerAndExitManager.getPlayer().getBody());
             gsm.pushState(PLAY);
         }
     }
@@ -176,12 +163,14 @@ public class Play extends GameState {
 
         sb.setProjectionMatrix(cam.combined);
 
+        //Draw the Gems
         for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
             for (B2DSprite gem : entry.getValue()) {
                 gem.render(sb);
             }
         }
 
+        //Draw the attunements
         for (Map.Entry<String, Array<B2DSprite>> entry : attunementManager.getAttunements().entrySet()) {
             for (B2DSprite attunement : entry.getValue()) {
                 attunement.render(sb);
@@ -192,14 +181,10 @@ public class Play extends GameState {
         for (B2DSprite spike : spikeManager.getSpikes()) {
             spike.render(sb);
         }
-        //for(int i = 0; i < spikes.size; i++) {
-        //    spikes.get(i).render(sb);
-        //}
 
         //Draw the player and exit
-        //exit.render(sb);
         playerAndExitManager.getExit().render(sb);
-        player.render(sb);
+        playerAndExitManager.getPlayer().render(sb);
 
         //Render the world
         //b2dr.render(world, b2dCam.combined);
@@ -209,89 +194,5 @@ public class Play extends GameState {
     public void dispose() {
         world.dispose();
         b2dr.dispose();
-    }
-
-    private void createPlayer(short categoryBit, short maskBit, BodyDef.BodyType bType) {
-        CircleShape shape = new CircleShape();
-        shape.setRadius((HSSIZE-8) / PPM);
-
-        BodyDef bdef = new BodyDef();
-        //bdef.position.set(HSSIZE / PPM, (GemGame.V_HEIGHT - HSSIZE)/PPM);
-        bdef.position.set(((3*SSIZE) + HSSIZE) / PPM, (14*SSIZE + HSSIZE)/PPM);
-        bdef.type = bType;
-        Body body = world.createBody(bdef);
-
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = shape;
-        fdef.filter.categoryBits = categoryBit;
-        fdef.filter.maskBits = maskBit;
-        body.createFixture(fdef).setUserData("player");
-
-        player = new Player(body);
-        body.setUserData(player);
-    }
-
-    private void createEntity(String layerName, short categoryBit, short maskBit, BodyDef.BodyType bType) {
-        MapLayer layer = tileMap.getLayers().get(layerName);
-
-        BodyDef bdef = new BodyDef();
-        FixtureDef fdef = new FixtureDef();
-
-        bdef.type = bType;
-
-        for(MapObject mo : layer.getObjects()) {
-            float x = ((Float) mo.getProperties().get("x") + HSSIZE)/PPM;
-            float y = ((Float) mo.getProperties().get("y") + HSSIZE)/PPM;
-
-            bdef.position.set(x, y);
-
-            PolygonShape pshape = new PolygonShape();
-            pshape.setAsBox(HSSIZE/PPM, HSSIZE/PPM);
-
-            fdef.shape = pshape;
-            fdef.isSensor = true;
-            fdef.filter.categoryBits = categoryBit;
-            fdef.filter.maskBits = maskBit;
-
-            Body body = world.createBody(bdef);
-            body.createFixture(fdef).setUserData("Exit");
-
-            Exit exit = new Exit(body);
-            this.exit = exit;
-            body.setUserData(exit);
-        }
-    }
-
-    private void createEntities(String layerName, short categoryBit, short maskBit, BodyDef.BodyType bType) {
-
-        MapLayer layer = tileMap.getLayers().get(layerName);
-
-        BodyDef bdef = new BodyDef();
-        FixtureDef fdef = new FixtureDef();
-
-        for(MapObject mo : layer.getObjects()) {
-            bdef.type = bType;
-
-            float x = ((Float) mo.getProperties().get("x") + HSSIZE)/PPM;
-            float y = ((Float) mo.getProperties().get("y") + HSSIZE)/PPM;
-
-            bdef.position.set(x,y);
-
-            PolygonShape pshape = new PolygonShape();
-            pshape.setAsBox((HSSIZE-8)/PPM,(HSSIZE-8)/PPM);
-
-            fdef.shape = pshape;
-            fdef.isSensor = false;
-            fdef.filter.categoryBits = categoryBit;
-            fdef.filter.maskBits = maskBit;
-
-            Body body = world.createBody(bdef);
-            body.createFixture(fdef).setUserData("Spike");
-            Spike spike = new Spike(body);
-            //spikes.add(spike);
-            body.setUserData(spike);
-
-        }
-
     }
 }

@@ -20,7 +20,7 @@ import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.SSIZE;
 public class PlayerAndExitManager {
 
     private B2DSprite exit;
-    private Player player;
+    private B2DSprite player;
 
     public B2DSprite getExit() {
         return exit;
@@ -30,11 +30,19 @@ public class PlayerAndExitManager {
         this.exit = exit;
     }
 
+    public B2DSprite getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(B2DSprite player) {
+        this.player = player;
+    }
+
     public PlayerAndExitManager() {
 
     }
 
-    public Player createPlayer(TiledMap tiledMap, World world) {
+    public void createPlayer(TiledMap tiledMap, World world) {
 
         short playerInteraction = B2DVars.BIT_RED_GEM | B2DVars.BIT_YELLOW_GEM | B2DVars.BIT_GREEN_GEM | B2DVars.BIT_BLUE_GEM |
                 B2DVars.BIT_RED_ATTUNEMENT | B2DVars.BIT_YELLOW_ATTUNEMENT | B2DVars.BIT_GREEN_ATTUNEMENT | B2DVars.BIT_BLUE_ATTUNEMENT |
@@ -58,7 +66,7 @@ public class PlayerAndExitManager {
         player = new Player(body);
         body.setUserData(player);
 
-        return player;
+        //return player;
     }
 
     public void createExit(String layerName,TiledMap tiledMap, World world) {
