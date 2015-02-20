@@ -49,13 +49,20 @@ public class Play extends GameState {
     private TiledMap tileMap;
     private OrthogonalTiledMapRenderer tmr;
 
+    private static String[] levels;
+    private static int currentLevel = 0;
+
     private GemManager gemManager;
     private AttunementManager attunementManager;
     private SpikeManager spikeManager;
     private PlayerAndExitManager playerAndExitManager;
 
-    public Play(GameStateManager gsm) {
+    public Play(GameStateManager gsm, String[] levels) {
         super(gsm);
+
+        //Assign the levels
+        //this.levels = levels;
+        //this.currentLevel = 0;
 
         //Create world, contact listener, abd debugger.
         world = new World(new Vector2(0,0), true);
@@ -64,7 +71,9 @@ public class Play extends GameState {
         b2dr = new Box2DDebugRenderer();
 
         // load tile map
-        tileMap = new TmxMapLoader().load("maps/GemGameTestLevel.tmx");
+        //tileMap = new TmxMapLoader().load("maps/GemGameTestLevel.tmx");
+        String currentMap = levels[currentLevel];
+        tileMap = new TmxMapLoader().load(currentMap);
         tmr = new OrthogonalTiledMapRenderer(tileMap);
 
         //Create the managers for the entities
@@ -128,12 +137,12 @@ public class Play extends GameState {
 
         world.step(dt, 6, 2);
 
-        //Update the Gems ### May not need this ###
-        for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
-            for (B2DSprite gem : entry.getValue()) {
-                gem.update(dt);
-            }
-        }
+        //Update the Gems ### Not needed ###
+        //for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
+        //    for (B2DSprite gem : entry.getValue()) {
+        //        gem.update(dt);
+        //    }
+        //}
 
         //Update the Attunements ### Not Needed ###
         //for (Map.Entry<String, Array<B2DSprite>> entry : attunementManager.getAttunements().entrySet()) {
@@ -152,7 +161,14 @@ public class Play extends GameState {
         if (cl.getRemoveExit()) {
             world.destroyBody(playerAndExitManager.getExit().getBody());
             world.destroyBody(playerAndExitManager.getPlayer().getBody());
-            gsm.pushState(PLAY);
+            if (currentLevel+1 < levels.length) {
+                this.currentLevel++;
+                gsm.pushState(PLAY);
+            } else {
+                //exit game. Game won.
+                gsm.popState();
+                gsm.game().dispose();
+            }
         }
     }
 

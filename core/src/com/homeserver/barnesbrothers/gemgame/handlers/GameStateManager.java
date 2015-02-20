@@ -34,7 +34,8 @@ public class GameStateManager {
 
     private GameState getState(int state) {
         if(state == PLAY) {
-            return new Play(this);
+            String[] levels = {"maps/GemGameTestLevel.tmx","maps/GemGameTestLevel.tmx"};
+            return new Play(this, levels);
         }
         return null;
     }
