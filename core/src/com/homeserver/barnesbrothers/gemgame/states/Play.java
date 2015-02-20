@@ -23,6 +23,8 @@ import com.homeserver.barnesbrothers.gemgame.entities.gems.RedGem;
 import com.homeserver.barnesbrothers.gemgame.entities.gems.YellowGem;
 import com.homeserver.barnesbrothers.gemgame.entitymanagers.AttunementManager;
 import com.homeserver.barnesbrothers.gemgame.entitymanagers.GemManager;
+import com.homeserver.barnesbrothers.gemgame.entitymanagers.PlayerAndExitManager;
+import com.homeserver.barnesbrothers.gemgame.entitymanagers.SpikeManager;
 import com.homeserver.barnesbrothers.gemgame.handlers.B2DVars;
 import com.homeserver.barnesbrothers.gemgame.handlers.GameStateManager;
 import com.homeserver.barnesbrothers.gemgame.handlers.GemContactListener;
@@ -45,7 +47,6 @@ public class Play extends GameState {
     private GemContactListener cl;
 
     private TiledMap tileMap;
-    private float tileSize;
     private OrthogonalTiledMapRenderer tmr;
 
     private Player player;
@@ -53,10 +54,10 @@ public class Play extends GameState {
 
     private GemManager gemManager;
     private AttunementManager attunementManager;
+    private SpikeManager spikeManager;
+    private PlayerAndExitManager playerAndExitManager;
 
-    private Array<Spike> spikes;
-
-    private boolean stuckAtZeroV;
+    //private Array<Spike> spikes;
 
     public Play(GameStateManager gsm) {
         super(gsm);
@@ -72,19 +73,26 @@ public class Play extends GameState {
 
         gemManager = new GemManager();
         attunementManager = new AttunementManager();
+        spikeManager = new SpikeManager();
+        playerAndExitManager = new PlayerAndExitManager();
 
-        spikes = new Array<Spike>();
+        //spikes = new Array<Spike>();
 
-        stuckAtZeroV = false;
 
         short playerInteraction = B2DVars.BIT_RED_GEM | B2DVars.BIT_YELLOW_GEM | B2DVars.BIT_GREEN_GEM | B2DVars.BIT_BLUE_GEM |
                                 B2DVars.BIT_RED_ATTUNEMENT | B2DVars.BIT_YELLOW_ATTUNEMENT | B2DVars.BIT_GREEN_ATTUNEMENT | B2DVars.BIT_BLUE_ATTUNEMENT |
                                 B2DVars.BIT_SPIKE | B2DVars.BIT_EXIT;
 
         createPlayer(B2DVars.BIT_PLAYER, playerInteraction, BodyDef.BodyType.DynamicBody);
-        createEntity("Exit", B2DVars.BIT_EXIT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntity("Exit", B2DVars.BIT_EXIT, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
 
-        createEntities("Spikes", B2DVars.BIT_SPIKE, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //createEntities("Spikes", B2DVars.BIT_SPIKE, B2DVars.BIT_PLAYER, BodyDef.BodyType.StaticBody);
+        //playerAndExitManager.createPlayer(tileMap, world);
+
+        playerAndExitManager.createExit("Exit", tileMap, world);
+        //this.exit = (Exit)playerAndExitManager.getExit();
+
+        spikeManager.createSpikes("Spikes", tileMap, world);
 
         String[] gemLayers = {"RedGems","YellowGems","GreenGems","BlueGems"};
         gemManager.createGems(gemLayers, tileMap, world);
@@ -149,13 +157,13 @@ public class Play extends GameState {
 
         //Update the player and the exit
         player.update(dt);
-        exit.update(dt);
+        //exit.update(dt);
 
         gemManager.removeGems(world, cl);
 
         //Level done. Remove exit and player, then start new.
         if (cl.getRemoveExit()) {
-            world.destroyBody(exit.getBody());
+            world.destroyBody(playerAndExitManager.getExit().getBody());
             world.destroyBody(player.getBody());
             gsm.pushState(PLAY);
         }
@@ -181,12 +189,16 @@ public class Play extends GameState {
         }
 
         //Draw the spikes
-        for(int i = 0; i < spikes.size; i++) {
-            spikes.get(i).render(sb);
+        for (B2DSprite spike : spikeManager.getSpikes()) {
+            spike.render(sb);
         }
+        //for(int i = 0; i < spikes.size; i++) {
+        //    spikes.get(i).render(sb);
+        //}
 
         //Draw the player and exit
-        exit.render(sb);
+        //exit.render(sb);
+        playerAndExitManager.getExit().render(sb);
         player.render(sb);
 
         //Render the world
@@ -276,7 +288,7 @@ public class Play extends GameState {
             Body body = world.createBody(bdef);
             body.createFixture(fdef).setUserData("Spike");
             Spike spike = new Spike(body);
-            spikes.add(spike);
+            //spikes.add(spike);
             body.setUserData(spike);
 
         }
