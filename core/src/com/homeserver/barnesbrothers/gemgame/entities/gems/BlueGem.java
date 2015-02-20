@@ -1,21 +1,23 @@
-package com.homeserver.barnesbrothers.gemgame.entities;
+package com.homeserver.barnesbrothers.gemgame.entities.gems;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.homeserver.barnesbrothers.gemgame.GemGame;
+import com.homeserver.barnesbrothers.gemgame.entities.B2DSprite;
 
 import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.SSIZE;
 
 /**
- * Created by david on 2/13/15.
+ * Created by david on 2/12/15.
  */
-public class RedAttunement extends B2DSprite {
-    public RedAttunement(Body body) {
+public class BlueGem extends B2DSprite {
+
+    public BlueGem(Body body) {
         super(body);
 
         Texture tex = GemGame.res.getTexture("tiles");
-        TextureRegion sprite = TextureRegion.split(tex, SSIZE, SSIZE)[2][0];
+        TextureRegion sprite = TextureRegion.split(tex, SSIZE, SSIZE)[1][3];
         TextureRegion[] sprites = new TextureRegion[1];
         sprites[0] = sprite;
 

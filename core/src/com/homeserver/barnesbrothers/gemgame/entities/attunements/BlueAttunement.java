@@ -1,9 +1,10 @@
-package com.homeserver.barnesbrothers.gemgame.entities;
+package com.homeserver.barnesbrothers.gemgame.entities.attunements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.homeserver.barnesbrothers.gemgame.GemGame;
+import com.homeserver.barnesbrothers.gemgame.entities.B2DSprite;
 
 import static com.homeserver.barnesbrothers.gemgame.handlers.B2DVars.SSIZE;
 /**
