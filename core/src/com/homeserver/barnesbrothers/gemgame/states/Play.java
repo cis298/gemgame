@@ -274,57 +274,10 @@ public class Play extends GameState {
             fdef.filter.maskBits = maskBit;
 
             Body body = world.createBody(bdef);
-/*
-            if (layerName.equals("RedGems")) {
-                body.createFixture(fdef).setUserData("Gem");
-                RedGem redGem = new RedGem(body);
-                redGems.add(redGem);
-                body.setUserData(redGem);
-            } else if (layerName.equals("YellowGems")) {
-                body.createFixture(fdef).setUserData("Gem");
-                YellowGem yellowGem = new YellowGem(body);
-                yellowGems.add(yellowGem);
-                body.setUserData(yellowGem);
-            } else if (layerName.equals("GreenGems")) {
-                body.createFixture(fdef).setUserData("Gem");
-                GreenGem greenGem = new GreenGem(body);
-                greenGems.add(greenGem);
-                body.setUserData(greenGem);
-            } else if (layerName.equals("BlueGems")) {
-                body.createFixture(fdef).setUserData("Gem");
-                BlueGem blueGem = new BlueGem(body);
-                blueGems.add(blueGem);
-                body.setUserData(blueGem);
-            } else if (layerName.equals("RedAttunement")) {
-                fdef.isSensor = true;
-                body.createFixture(fdef).setUserData("Attunement");
-                RedAttunement redAttunement = new RedAttunement(body);
-                redAttunments.add(redAttunement);
-                body.setUserData(redAttunement);
-            } else if (layerName.equals("YellowAttunement")) {
-                fdef.isSensor = true;
-                body.createFixture(fdef).setUserData("Attunement");
-                YellowAttunement yellowAttunement = new YellowAttunement(body);
-                yellowAttunments.add(yellowAttunement);
-                body.setUserData(yellowAttunement);
-            } else if (layerName.equals("GreenAttunement")) {
-                fdef.isSensor = true;
-                body.createFixture(fdef).setUserData("Attunement");
-                GreenAttunement greenAttunement = new GreenAttunement(body);
-                greenAttunments.add(greenAttunement);
-                body.setUserData(greenAttunement);
-            } else if (layerName.equals("BlueAttunement")) {
-                fdef.isSensor = true;
-                body.createFixture(fdef).setUserData("Attunement");
-                BlueAttunement blueAttunement = new BlueAttunement(body);
-                blueAttunements.add(blueAttunement);
-                body.setUserData(blueAttunement);
-            } else {
-*/                body.createFixture(fdef).setUserData("Spike");
-                Spike spike = new Spike(body);
-                spikes.add(spike);
-                body.setUserData(spike);
-//            }
+            body.createFixture(fdef).setUserData("Spike");
+            Spike spike = new Spike(body);
+            spikes.add(spike);
+            body.setUserData(spike);
 
         }
 
