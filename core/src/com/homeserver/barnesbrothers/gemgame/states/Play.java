@@ -57,7 +57,23 @@ public class Play extends GameState {
     private SpikeManager spikeManager;
     private PlayerAndExitManager playerAndExitManager;
 
-    public Play(GameStateManager gsm, String[] levels) {
+    public static String[] getLevels() {
+        return levels;
+    }
+
+    public static void setLevels(String[] levels) {
+        Play.levels = levels;
+    }
+
+    public static int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public static void setCurrentLevel(int currentLevel) {
+        Play.currentLevel = currentLevel;
+    }
+
+    public Play(GameStateManager gsm) {
         super(gsm);
 
         //Assign the levels
