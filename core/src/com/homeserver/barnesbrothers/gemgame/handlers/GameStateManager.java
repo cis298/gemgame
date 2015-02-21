@@ -22,7 +22,7 @@ public class GameStateManager {
         this.game = game;
         gameStates = new Stack<GameState>();
         String[] levels = {"maps/GemGameTestLevel.tmx",
-                            "maps/GemGameTestLevel.tmx"};
+                            "maps/GemGameTestLevel2.tmx"};
         Play.setLevels(levels);
         Play.setCurrentLevel(0);
         pushState(PLAY);
