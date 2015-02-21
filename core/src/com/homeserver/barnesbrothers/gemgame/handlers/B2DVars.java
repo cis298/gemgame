@@ -5,6 +5,7 @@ package com.homeserver.barnesbrothers.gemgame.handlers;
  */
 public class B2DVars {
 
+    public static final int TITLE = 123456;
     public static final int PLAY = 912837;
 
     public static final int SSIZE = 64;

@@ -76,18 +76,13 @@ public class Play extends GameState {
     public Play(GameStateManager gsm) {
         super(gsm);
 
-        //Assign the levels
-        //this.levels = levels;
-        //this.currentLevel = 0;
-
-        //Create world, contact listener, abd debugger.
+        //Create world, contact listener, and debugger.
         world = new World(new Vector2(0,0), true);
         cl = new GemContactListener();
         world.setContactListener(cl);
         b2dr = new Box2DDebugRenderer();
 
         // load tile map
-        //tileMap = new TmxMapLoader().load("maps/GemGameTestLevel.tmx");
         String currentMap = levels[currentLevel];
         tileMap = new TmxMapLoader().load(currentMap);
         tmr = new OrthogonalTiledMapRenderer(tileMap);
@@ -153,21 +148,6 @@ public class Play extends GameState {
 
         world.step(dt, 6, 2);
 
-        //Update the Gems ### Not needed ###
-        //for (Map.Entry<String, Array<B2DSprite>> entry : gemManager.getGems().entrySet()) {
-        //    for (B2DSprite gem : entry.getValue()) {
-        //        gem.update(dt);
-        //    }
-        //}
-
-        //Update the Attunements ### Not Needed ###
-        //for (Map.Entry<String, Array<B2DSprite>> entry : attunementManager.getAttunements().entrySet()) {
-        //    for (B2DSprite attunement : entry.getValue()) {
-        //        attunement.update(dt);
-        //    }
-        //}
-
-
         //Update the player
         playerAndExitManager.getPlayer().update(dt);
 
@@ -181,9 +161,9 @@ public class Play extends GameState {
                 this.currentLevel++;
                 gsm.pushState(PLAY);
             } else {
-                //exit game. Game won.
-                gsm.popState();
-                gsm.game().dispose();
+                //Game won, go back to title screen
+                Play.setCurrentLevel(0);
+                gsm.pushState(TITLE);
             }
         }
     }
