@@ -1,6 +1,7 @@
 package com.homeserver.barnesbrothers.gemgame.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -17,6 +18,7 @@ public class Title extends GameState {
     private OrthogonalTiledMapRenderer tmr;
 
     private boolean startGame;
+    private boolean screenIsTouched;
 
     public Title(GameStateManager gsm) {
         super(gsm);
@@ -25,20 +27,29 @@ public class Title extends GameState {
         tmr = new OrthogonalTiledMapRenderer(tileMap);
 
         if (Gdx.input.isTouched()) {
-            startGame = false;
+            screenIsTouched = false;
         } else {
-            startGame = true;
+            screenIsTouched = true;
         }
 
     }
 
     @Override
     public void handleInput() {
-        if (Gdx.input.isTouched() && startGame) {
-            gsm.pushState(PLAY);
-        }
-        if (Gdx.input.justTouched()) {
+        if (Gdx.input.isTouched() && screenIsTouched) {
             startGame = true;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+            startGame = true;
+        }
+        
+        if (Gdx.input.justTouched()) {
+            screenIsTouched = true;
+        }
+
+        if (startGame) {
+            gsm.pushState(PLAY);
         }
     }
 
