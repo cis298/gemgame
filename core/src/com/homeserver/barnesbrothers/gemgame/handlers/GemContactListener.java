@@ -16,6 +16,7 @@ public class GemContactListener implements ContactListener {
     private Array<Body> blueGemsToRemove;
 
     private boolean removeExit;
+    private boolean startLevelOver;
 
     private HashMap<String, Integer> gemToAttunement;
 
@@ -33,6 +34,7 @@ public class GemContactListener implements ContactListener {
         gemToAttunement.put("BlueGem", 3);
 
         removeExit = false;
+        startLevelOver = false;
     }
 
 
@@ -57,7 +59,8 @@ public class GemContactListener implements ContactListener {
             } else if (fb.getUserData().equals("Exit")) {
                 removeExit = true;
             } else {
-
+                //hit spike. Start level over.
+                startLevelOver = true;
             }
         }
         if(fb.getUserData() != null && fb.getUserData().equals("player")) {
@@ -74,7 +77,8 @@ public class GemContactListener implements ContactListener {
             } else if (fa.getUserData().equals("Exit")) {
                 removeExit = true;
             } else {
-
+                //Hit spike. Start level over
+                startLevelOver = true;
             }
 
         }
@@ -111,6 +115,7 @@ public class GemContactListener implements ContactListener {
     public boolean getRemoveExit() {
         return removeExit;
     }
+    public boolean getStartLevelOver() { return startLevelOver; }
 
     private void queueGemsToRemoveGem(Fixture className, Fixture player) {
         Player localPlayer = (Player)player.getBody().getUserData();

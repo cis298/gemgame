@@ -19,6 +19,7 @@ public class Title extends GameState {
 
     private boolean startGame;
     private boolean screenIsTouched;
+    private boolean keyIsPressed;
 
     public Title(GameStateManager gsm) {
         super(gsm);
@@ -27,29 +28,40 @@ public class Title extends GameState {
         tmr = new OrthogonalTiledMapRenderer(tileMap);
 
         if (Gdx.input.isTouched()) {
-            screenIsTouched = false;
-        } else {
             screenIsTouched = true;
+        } else {
+            screenIsTouched = false;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+            keyIsPressed = true;
+        } else {
+            keyIsPressed = false;
         }
 
     }
 
     @Override
     public void handleInput() {
-        if (Gdx.input.isTouched() && screenIsTouched) {
+        if (Gdx.input.isTouched() && !screenIsTouched) {
             startGame = true;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) && !keyIsPressed) {
             startGame = true;
         }
         
         if (Gdx.input.justTouched()) {
-            screenIsTouched = true;
+            screenIsTouched = false;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
+            keyIsPressed = false;
         }
 
         if (startGame) {
             gsm.pushState(PLAY);
+            startGame = false;
         }
     }
 

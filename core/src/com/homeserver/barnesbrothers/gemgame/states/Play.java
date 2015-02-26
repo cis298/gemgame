@@ -155,16 +155,18 @@ public class Play extends GameState {
 
         //Level done. Remove exit and player, then start new.
         if (cl.getRemoveExit()) {
-            world.destroyBody(playerAndExitManager.getExit().getBody());
-            world.destroyBody(playerAndExitManager.getPlayer().getBody());
             if (currentLevel+1 < levels.length) {
                 this.currentLevel++;
-                gsm.pushState(PLAY);
+                gsm.setState(PLAY);
             } else {
                 //Game won, go back to title screen
                 Play.setCurrentLevel(0);
-                gsm.pushState(TITLE);
+                gsm.popState();
             }
+        }
+
+        if (cl.getStartLevelOver()) {
+            gsm.setState(PLAY);
         }
     }
 

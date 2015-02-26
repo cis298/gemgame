@@ -19,7 +19,7 @@ public class GemGame extends ApplicationAdapter {
     public static final int SCALE = 2;
 
     public static final float STEP = 1/60f;
-    //private float accum;
+    private float accum;
 
     private SpriteBatch sb;
     private OrthographicCamera cam;
@@ -53,9 +53,10 @@ public class GemGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //accum += Gdx.graphics.getDeltaTime();
-        //while (accum <= STEP) {
-        //    accum -= STEP;
-            gsm.update(STEP);
+        //while (accum >= STEP) {
+            //accum -= STEP;
+            //gsm.update(STEP);
+            gsm.update(Gdx.graphics.getDeltaTime());
             gsm.render();
         //}
         GemInput.update();
