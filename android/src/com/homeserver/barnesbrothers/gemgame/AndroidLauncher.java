@@ -1,4 +1,4 @@
-package com.homeserver.barnesbrothers.gemgame.android;
+package com.homeserver.barnesbrothers.gemgame;
 
 import android.os.Bundle;
 

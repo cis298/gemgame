@@ -5,6 +5,7 @@
   <arch>thumbv7</arch>
   <target>ios</target>
   <iosInfoPList>Info.plist.xml</iosInfoPList>
+  <treeShaker>conservative</treeShaker>
   <resources>
     <resource>
       <directory>../android/assets</directory>
@@ -19,7 +20,6 @@
   </resources>
   <forceLinkClasses>
     <pattern>com.badlogic.gdx.scenes.scene2d.ui.*</pattern>
-    <pattern>com.badlogic.gdx.physics.bullet.**</pattern>
     <pattern>com.badlogic.gdx.graphics.g3d.particles.**</pattern>
     <pattern>com.android.okhttp.HttpHandler</pattern>
     <pattern>com.android.okhttp.HttpsHandler</pattern>
@@ -33,7 +33,8 @@
     <pattern>org.apache.harmony.security.provider.cert.DRLCertFactory</pattern>
     <pattern>org.apache.harmony.security.provider.crypto.CryptoProvider</pattern>
   </forceLinkClasses>
-  <libs>      
+  <libs>
+      <lib>z</lib>   
   </libs>
   <frameworks>
     <framework>UIKit</framework>
